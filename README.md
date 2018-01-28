@@ -1,6 +1,8 @@
 # CS426_MelodyBot
 CS426 Project - Team#19
+
 Members:
+
 Nicholas Harris
 David Neilsen
 Joseph San Nicolas
