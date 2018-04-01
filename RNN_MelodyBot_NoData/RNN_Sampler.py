@@ -30,6 +30,8 @@ if(len(sys.argv) > 1 ):
     model = sys.argv[1]
     instrument = str(sys.argv[2])
     tempo = str(sys.argv[3])
+    seed = int(sys.argv[4])
+    np.random.seed(seed)
 else:
     model = ""
 
@@ -38,9 +40,12 @@ open('longDatax.txt', 'w').close()
 open('shortDatax.txt', 'w').close()
 open('shortDataFresh.txt', 'w').close()
 
-model = "jimiHendrixGuitar"
+#model = "jimiHendrixGuitar"
 #tempo = "120"
 #default = False
+#seed = 100
+#instrument = "30"
+#np.random.seed(seed)
 
 #read from selected model
 if model == "classicalViolin":
@@ -262,7 +267,11 @@ def sample(h, seed_ix, n):
 ##############################################################
 #n, p = 0, 0
 n = 1
-p = np.random.randint(0, len(data) - seq_length - 5)  #random placement of data cursor so samples are different
+
+if default == True:
+    p = np.random.randint(0, len(data) - seq_length - 5)  #random placement of data cursor so samples are different
+else:
+    p = seed % (len(data) - seq_length - 5)
 mWxh, mWhh, mWhy = np.zeros_like(Wxh), np.zeros_like(Whh), np.zeros_like(Why)
 mbh, mby = np.zeros_like(bh), np.zeros_like(by) # memory variables for Adagrad
 smooth_loss = -np.log(1.0/vocab_size)*seq_length # loss at iteration 0

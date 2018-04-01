@@ -33,7 +33,7 @@ directory = "testing_music_reggae_drum\\"
 
 
 for filename in os.listdir(directory):
-  if filename.endswith(".mid"):
+  if filename.endswith(".mid") or filename.endswith(".MID"):
     filestring = directory + filename
     #cmd = ["./midicsv", filestring, directory + "jazzPianoCSV" + str(i) + ".txt"]
     #cmd = ["./midicsv", filestring, directory + "soloViolinCSV" + str(i) + ".txt"]
@@ -42,6 +42,7 @@ for filename in os.listdir(directory):
     #cmd = ["./midicsv", filestring, directory + "mozartPianoCSV" + str(i) + ".txt"]
     #cmd = ["./midicsv", filestring, directory + "jimiHendrixGuitarCSV" + str(i) + ".txt"]
     cmd = ["./midicsv", filestring, directory + "reggaeDrumCSV" + str(i) + ".txt"]
+    #print (cmd)
     i += 1
     result = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     out = result.stdout.read()
