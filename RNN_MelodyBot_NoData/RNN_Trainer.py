@@ -23,7 +23,9 @@ open('shortDataFresh.txt', 'w').close()
 
 #create csv files from each midi in testing data
 
-directory = "testing_music_solo_violin\\"
+directory = "testing_music_jimi_hendrix_guitar\\"
+#directory = "testing_music_mozart_piano\\"
+#directory = "testing_music_solo_violin\\"
 #directory = "testing_music_jazz_piano\\"
 #directory = "testing_music_blues_guitar\\"
 #directory = "testing_music_spanish_guitar\\"
@@ -33,9 +35,11 @@ for filename in os.listdir(directory):
   if filename.endswith(".mid"):
     filestring = directory + filename
     #cmd = ["./midicsv", filestring, directory + "jazzPianoCSV" + str(i) + ".txt"]
-    cmd = ["./midicsv", filestring, directory + "soloViolinCSV" + str(i) + ".txt"]
+    #cmd = ["./midicsv", filestring, directory + "soloViolinCSV" + str(i) + ".txt"]
     #cmd = ["./midicsv", filestring, directory + "bluesGuitarCSV" + str(i) + ".txt"]
     #cmd = ["./midicsv", filestring, directory + "spanishGuitarCSV" + str(i) + ".txt"]
+    #cmd = ["./midicsv", filestring, directory + "mozartPianoCSV" + str(i) + ".txt"]
+    cmd = ["./midicsv", filestring, directory + "jimiHendrixGuitarCSV" + str(i) + ".txt"]
     i += 1
     result = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     out = result.stdout.read()
@@ -154,7 +158,9 @@ def line_prepender(filename, line):
 #sampleDirectory = "generated_music_solo_violin\\"
 #sampleDirectory = "generated_music_jazz_piano\\"
 #sampleDirectory = "generated_music_blues_guitar\\"
-sampleDirectory = "generated_music_spanish_guitar\\"
+#sampleDirectory = "generated_music_spanish_guitar\\"
+#sampleDirectory = "generated_music_mozart_piano\\"
+sampleDirectory = "generated_music_jimi_hendrix_guitar\\"
 
 #model directory
 modelDirectory = "trained_models\\"
@@ -174,7 +180,7 @@ for n in range(10000000):
   targets = [char_to_ix[ch] for ch in data[p+1:p+seq_length+1]]
 
   # sample from the model now and then
-  if n % 50000 == 0:     #was 5000
+  if n % 10000 == 0:     #was 5000
     sample_ix = sample(hprev, inputs[0], 3000)  #200 originally
     txt = ''.join(ix_to_char[ix] for ix in sample_ix)
     #print '----\n %s \n----' % (txt, )
@@ -199,8 +205,14 @@ for n in range(10000000):
     #header for jazz piano
     #header = "0, 0, Header, 0, 1, 120\n1, 0, Start_track\n1, 230400, End_track\n2, 0, Start_track\n2, 0, Title_t, \"A House Is Not A Home\"\n2, 0, Text_t, \"Dougmck\\012\"\n2, 0, Time_signature, 4, 2, 24, 8\n2, 0, Key_signature, 0, \"major\"\n2, 0, Tempo, 681818\n2, 0, Program_c, 0, 0\n2, 0, Program_c, 1, 0\n"
 
+    #header for mozart piano
+    #header = "0, 0, Header, 0, 1, 120\n1, 0, Start_track\n1, 230400, End_track\n2, 0, Start_track\n2, 0, Title_t, \"A House Is Not A Home\"\n2, 0, Text_t, \"Dougmck\\012\"\n2, 0, Time_signature, 4, 2, 24, 8\n2, 0, Key_signature, 0, \"major\"\n2, 0, Tempo, 803643\n2, 0, Program_c, 0, 0\n2, 0, Program_c, 1, 0\n"
+
     #header for blues/spanish guitar
-    header = "0, 0, Header, 1, 2, 960\n1, 0, Start_track\n1, 0, Control_c, 0, 101, 0\n1, 0, Control_c, 0, 100, 0\n1, 0, Control_c, 0, 6, 12\n1, 0, Control_c, 0, 38, 0\n1, 0, Control_c, 1, 101, 0\n1, 0, Control_c, 1, 100, 0\n1, 0, Control_c, 1, 6, 12\n1, 0, Control_c, 1, 38, 0\n1, 0, Control_c, 2, 101, 0\n1, 0, Control_c, 2, 100, 0\n1, 0, Control_c, 2, 6, 12\n1, 0, Control_c, 2, 38, 0\n1, 0, Control_c, 3, 101, 0\n1, 0, Control_c, 3, 100, 0\n1, 0, Control_c, 3, 6, 12\n1, 0, Control_c, 3, 38, 0\n1, 0, Control_c, 4, 101, 0\n1, 0, Control_c, 4, 100, 0\n1, 0, Control_c, 4, 6, 12\n1, 0, Control_c, 4, 38, 0\n1, 0, Control_c, 5, 101, 0\n1, 0, Control_c, 5, 100, 0\n1, 0, Control_c, 5, 6, 12\n1, 0, Control_c, 5, 38, 0\n1, 0, Control_c, 6, 101, 0\n1, 0, Control_c, 6, 100, 0\n1, 0, Control_c, 6, 6, 12\n1, 0, Control_c, 6, 38, 0\n1, 0, Control_c, 7, 101, 0\n1, 0, Control_c, 7, 100, 0\n1, 0, Control_c, 7, 6, 12\n1, 0, Control_c, 7, 38, 0\n1, 0, Control_c, 8, 101, 0\n1, 0, Control_c, 8, 100, 0\n1, 0, Control_c, 8, 6, 12\n1, 0, Control_c, 8, 38, 0\n1, 0, Control_c, 9, 101, 0\n1, 0, Control_c, 9, 100, 0\n1, 0, Control_c, 9, 6, 12\n1, 0, Control_c, 9, 38, 0\n1, 0, Control_c, 10, 101, 0\n1, 0, Control_c, 10, 100, 0\n1, 0, Control_c, 10, 6, 12\n1, 0, Control_c, 10, 38, 0\n1, 0, Control_c, 11, 101, 0\n1, 0, Control_c, 11, 100, 0\n1, 0, Control_c, 11, 6, 12\n1, 0, Control_c, 11, 38, 0\n1, 0, Control_c, 12, 101, 0\n1, 0, Control_c, 12, 100, 0\n1, 0, Control_c, 12, 6, 12\n1, 0, Control_c, 12, 38, 0\n1, 0, Control_c, 13, 101, 0\n1, 0, Control_c, 13, 100, 0\n1, 0, Control_c, 13, 6, 12\n1, 0, Control_c, 13, 38, 0\n1, 0, Control_c, 14, 101, 0\n1, 0, Control_c, 14, 100, 0\n1, 0, Control_c, 14, 6, 12\n1, 0, Control_c, 14, 38, 0\n1, 0, Control_c, 15, 101, 0\n1, 0, Control_c, 15, 100, 0\n1, 0, Control_c, 15, 6, 12\n1, 0, Control_c, 15, 38, 0\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 480000\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, 25\n"
+    #header = "0, 0, Header, 1, 2, 960\n1, 0, Start_track\n1, 0, Control_c, 0, 101, 0\n1, 0, Control_c, 0, 100, 0\n1, 0, Control_c, 0, 6, 12\n1, 0, Control_c, 0, 38, 0\n1, 0, Control_c, 1, 101, 0\n1, 0, Control_c, 1, 100, 0\n1, 0, Control_c, 1, 6, 12\n1, 0, Control_c, 1, 38, 0\n1, 0, Control_c, 2, 101, 0\n1, 0, Control_c, 2, 100, 0\n1, 0, Control_c, 2, 6, 12\n1, 0, Control_c, 2, 38, 0\n1, 0, Control_c, 3, 101, 0\n1, 0, Control_c, 3, 100, 0\n1, 0, Control_c, 3, 6, 12\n1, 0, Control_c, 3, 38, 0\n1, 0, Control_c, 4, 101, 0\n1, 0, Control_c, 4, 100, 0\n1, 0, Control_c, 4, 6, 12\n1, 0, Control_c, 4, 38, 0\n1, 0, Control_c, 5, 101, 0\n1, 0, Control_c, 5, 100, 0\n1, 0, Control_c, 5, 6, 12\n1, 0, Control_c, 5, 38, 0\n1, 0, Control_c, 6, 101, 0\n1, 0, Control_c, 6, 100, 0\n1, 0, Control_c, 6, 6, 12\n1, 0, Control_c, 6, 38, 0\n1, 0, Control_c, 7, 101, 0\n1, 0, Control_c, 7, 100, 0\n1, 0, Control_c, 7, 6, 12\n1, 0, Control_c, 7, 38, 0\n1, 0, Control_c, 8, 101, 0\n1, 0, Control_c, 8, 100, 0\n1, 0, Control_c, 8, 6, 12\n1, 0, Control_c, 8, 38, 0\n1, 0, Control_c, 9, 101, 0\n1, 0, Control_c, 9, 100, 0\n1, 0, Control_c, 9, 6, 12\n1, 0, Control_c, 9, 38, 0\n1, 0, Control_c, 10, 101, 0\n1, 0, Control_c, 10, 100, 0\n1, 0, Control_c, 10, 6, 12\n1, 0, Control_c, 10, 38, 0\n1, 0, Control_c, 11, 101, 0\n1, 0, Control_c, 11, 100, 0\n1, 0, Control_c, 11, 6, 12\n1, 0, Control_c, 11, 38, 0\n1, 0, Control_c, 12, 101, 0\n1, 0, Control_c, 12, 100, 0\n1, 0, Control_c, 12, 6, 12\n1, 0, Control_c, 12, 38, 0\n1, 0, Control_c, 13, 101, 0\n1, 0, Control_c, 13, 100, 0\n1, 0, Control_c, 13, 6, 12\n1, 0, Control_c, 13, 38, 0\n1, 0, Control_c, 14, 101, 0\n1, 0, Control_c, 14, 100, 0\n1, 0, Control_c, 14, 6, 12\n1, 0, Control_c, 14, 38, 0\n1, 0, Control_c, 15, 101, 0\n1, 0, Control_c, 15, 100, 0\n1, 0, Control_c, 15, 6, 12\n1, 0, Control_c, 15, 38, 0\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 480000\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, 25\n"
+
+    #header for Jimi Hendrix guitar
+    header = "0, 0, Header, 1, 2, 960\n1, 0, Start_track\n1, 0, Control_c, 0, 101, 0\n1, 0, Control_c, 0, 100, 0\n1, 0, Control_c, 0, 6, 12\n1, 0, Control_c, 0, 38, 0\n1, 0, Control_c, 1, 101, 0\n1, 0, Control_c, 1, 100, 0\n1, 0, Control_c, 1, 6, 12\n1, 0, Control_c, 1, 38, 0\n1, 0, Control_c, 2, 101, 0\n1, 0, Control_c, 2, 100, 0\n1, 0, Control_c, 2, 6, 12\n1, 0, Control_c, 2, 38, 0\n1, 0, Control_c, 3, 101, 0\n1, 0, Control_c, 3, 100, 0\n1, 0, Control_c, 3, 6, 12\n1, 0, Control_c, 3, 38, 0\n1, 0, Control_c, 4, 101, 0\n1, 0, Control_c, 4, 100, 0\n1, 0, Control_c, 4, 6, 12\n1, 0, Control_c, 4, 38, 0\n1, 0, Control_c, 5, 101, 0\n1, 0, Control_c, 5, 100, 0\n1, 0, Control_c, 5, 6, 12\n1, 0, Control_c, 5, 38, 0\n1, 0, Control_c, 6, 101, 0\n1, 0, Control_c, 6, 100, 0\n1, 0, Control_c, 6, 6, 12\n1, 0, Control_c, 6, 38, 0\n1, 0, Control_c, 7, 101, 0\n1, 0, Control_c, 7, 100, 0\n1, 0, Control_c, 7, 6, 12\n1, 0, Control_c, 7, 38, 0\n1, 0, Control_c, 8, 101, 0\n1, 0, Control_c, 8, 100, 0\n1, 0, Control_c, 8, 6, 12\n1, 0, Control_c, 8, 38, 0\n1, 0, Control_c, 9, 101, 0\n1, 0, Control_c, 9, 100, 0\n1, 0, Control_c, 9, 6, 12\n1, 0, Control_c, 9, 38, 0\n1, 0, Control_c, 10, 101, 0\n1, 0, Control_c, 10, 100, 0\n1, 0, Control_c, 10, 6, 12\n1, 0, Control_c, 10, 38, 0\n1, 0, Control_c, 11, 101, 0\n1, 0, Control_c, 11, 100, 0\n1, 0, Control_c, 11, 6, 12\n1, 0, Control_c, 11, 38, 0\n1, 0, Control_c, 12, 101, 0\n1, 0, Control_c, 12, 100, 0\n1, 0, Control_c, 12, 6, 12\n1, 0, Control_c, 12, 38, 0\n1, 0, Control_c, 13, 101, 0\n1, 0, Control_c, 13, 100, 0\n1, 0, Control_c, 13, 6, 12\n1, 0, Control_c, 13, 38, 0\n1, 0, Control_c, 14, 101, 0\n1, 0, Control_c, 14, 100, 0\n1, 0, Control_c, 14, 6, 12\n1, 0, Control_c, 14, 38, 0\n1, 0, Control_c, 15, 101, 0\n1, 0, Control_c, 15, 100, 0\n1, 0, Control_c, 15, 6, 12\n1, 0, Control_c, 15, 38, 0\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 800000\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, 28\n"
 
     #footer for csv file
     footer = "3, 0, Start_track\n3, 0, MIDI_port, 0\n3, 0, Title_t, \"--------------------------------------\"\n3, 0, Program_c, 1, 40\n3, 0, Control_c, 1, 7, 100\n3, 0, Control_c, 1, 10, 74\n3, 59760, End_track\n4, 0, Start_track\n4, 0, MIDI_port, 0\n4, 0, Title_t, \"Johann Sebastian Bach  (1685-1750)\"\n4, 0, Program_c, 2, 40\n4, 0, Control_c, 2, 7, 100\n4, 0, Control_c, 2, 10, 54\n4, 59760, End_track\n5, 0, Start_track\n5, 0, MIDI_port, 0\n5, 0, Title_t, \"Six Sonatas and Partitas for Solo Violin\"\n5, 0, End_track\n6, 0, Start_track\n6, 0, MIDI_port, 0\n6, 0, Title_t, \"--------------------------------------\"\n6, 0, End_track\n7, 0, Start_track\n7, 0, MIDI_port, 0\n7, 0, Title_t, \"Partita No. 1 in B minor - BWV 1002\"\n7, 0, End_track\n8, 0, Start_track\n8, 0, MIDI_port, 0\n8, 0, Title_t, \"3rd Movement: Corrente\"\n8, 0, End_track\n9, 0, Start_track\n9, 0, MIDI_port, 0\n9, 0, Title_t, \"--------------------------------------\"\n9, 0, End_track\n10, 0, Start_track\n10, 0, MIDI_port, 0\n10, 0, Title_t, \"Sequenced with Cakewalk Pro Audio by\"\n10, 0, End_track\n11, 0, Start_track\n11, 0, MIDI_port, 0\n11, 0, Title_t, \"David J. Grossman - dave@unpronounceable.com\"\n11, 0, End_track\n12, 0, Start_track\n12, 0, MIDI_port, 0\n12, 0, Title_t, \"This and other Bach MIDI files can be found at:\"\n12, 0, End_track\n13, 0, Start_track\n13, 0, MIDI_port, 0\n13, 0, Title_t, \"Dave's J.S. Bach Page\"\n13, 0, End_track\n14, 0, Start_track\n14, 0, MIDI_port, 0\n14, 0, Title_t, \"http://www.unpronounceable.com/bach\"\n14, 0, End_track\n15, 0, Start_track\n15, 0, MIDI_port, 0\n15, 0, Title_t, \"--------------------------------------\"\n15, 0, End_track\n16, 0, Start_track\n16, 0, MIDI_port, 0\n16, 0, Title_t, \"Original Filename: vp1-3co.mid\"\n16, 0, End_track\n17, 0, Start_track\n17, 0, MIDI_port, 0\n17, 0, Title_t, \"Last Modified: February 22, 1997\"\n17, 0, End_track\n0, 0, End_of_file\n"
@@ -212,10 +224,12 @@ for n in range(10000000):
         outfile.write(header + content + footer)
 
     #create midi file from csv
-        
+    #cmd = ["./csvmidi", filestring3, sampleDirectory + "mozartPianoSample" + str(n) + ".mid"]
+    #cmd = ["./csvmidi", filestring3, sampleDirectory + "classicalViolinSample" + str(n) + ".mid"]
     #cmd = ["./csvmidi", filestring3, sampleDirectory + "jazzPianoSample" + str(n) + ".mid"]
     #cmd = ["./csvmidi", filestring3, sampleDirectory + "bluesGuitarSample" + str(n) + ".mid"]
-    cmd = ["./csvmidi", filestring3, sampleDirectory + "spanishGuitarSample" + str(n) + ".mid"]
+    #cmd = ["./csvmidi", filestring3, sampleDirectory + "spanishGuitarSample" + str(n) + ".mid"]
+    cmd = ["./csvmidi", filestring3, sampleDirectory + "jimiHendrixGuitarSample" + str(n) + ".mid"]
     
     result = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     out = result.stdout.read()
@@ -223,9 +237,11 @@ for n in range(10000000):
     #save trained model parameters
     
     #filestring4 = modelDirectory + "jazzPiano" + str(n) + ".txt"
-    #filestring4 = modelDirectory + "soloViolin" + str(n) + ".txt"
+    #filestring4 = modelDirectory + "classicalViolin" + str(n) + ".txt"
     #filestring4 = modelDirectory + "bluesGuitar" + str(n) + ".txt"
-    filestring4 = modelDirectory + "spanishGuitar" + str(n) + ".txt"
+    #filestring4 = modelDirectory + "spanishGuitar" + str(n) + ".txt"
+    #filestring4 = modelDirectory + "mozartPiano" + str(n) + ".txt"
+    filestring4 = modelDirectory + "jimiHendrixGuitar" + str(n) + ".txt"
     
     with open(filestring4, 'w') as outfile:
       outfile.write(str(hidden_size) + '\n' + str(seq_length) + '\n' + str(vocab_size) + "\n")
@@ -251,6 +267,8 @@ for n in range(10000000):
       for i in range (0, vocab_size):
         outfile.write(str(by[i][0]) + '\n')
       outfile.write("\n")
+      for i in range (0, hidden_size):
+        outfile.write(str(hprev[i][0]) + '\n')
     
 
   # forward seq_length characters through the net and fetch gradient
