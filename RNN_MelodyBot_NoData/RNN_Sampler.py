@@ -19,6 +19,7 @@ learning_rate = 1e-1
 sampleDirectory = "active_samples\\"
 default = True
 instrument = "0"
+tempo = "120"
 
 def union(*dicts):
     return dict(itertools.chain.from_iterable(dct.items() for dct in dicts))
@@ -28,6 +29,7 @@ if(len(sys.argv) > 1 ):
     default = False
     model = sys.argv[1]
     instrument = str(sys.argv[2])
+    tempo = str(sys.argv[3])
 else:
     model = ""
 
@@ -36,7 +38,9 @@ open('longDatax.txt', 'w').close()
 open('shortDatax.txt', 'w').close()
 open('shortDataFresh.txt', 'w').close()
 
-#model = "jazzPiano"
+model = "jimiHendrixGuitar"
+#tempo = "120"
+#default = False
 
 #read from selected model
 if model == "classicalViolin":
@@ -50,7 +54,7 @@ if model == "classicalViolin":
     if default == True:
         header = "0, 0, Header, 1, 17, 480\n1, 0, Start_track\n1, 0, Title_t, \"untitled\"\n1, 0, Copyright_t, \"Copyright © 1996 by David J. Grossman\"\n1, 0, Text_t, \"David J. Grossman\"\n1, 0, SMPTE_offset, 96, 0, 3, 0, 0\n1, 0, Time_signature, 3, 2, 24, 8\n1, 0, Key_signature, 2, \"major\"\n1, 0, Tempo, 240000\n1, 1200, Tempo, 461538\n1, 1440, Marker_t, \"A\"\n1, 47520, Marker_t, \"A'\"\n1, 93600, Marker_t, \"B\"\n1, 162720, Marker_t, \"B'\"\n1, 230400, Tempo, 923077\n1, 230400, End_track\n2, 0, Start_track\n2, 0, MIDI_port, 0\n2, 0, Title_t, \"Solo Violin\"\n2, 0, Program_c, 0, 40\n2, 0, Control_c, 0, 7, 100\n2, 0, Control_c, 0, 10, 64\n"
     else:
-        header = "0, 0, Header, 1, 17, 480\n1, 0, Start_track\n1, 0, Title_t, \"untitled\"\n1, 0, Copyright_t, \"Copyright © 1996 by David J. Grossman\"\n1, 0, Text_t, \"David J. Grossman\"\n1, 0, SMPTE_offset, 96, 0, 3, 0, 0\n1, 0, Time_signature, 3, 2, 24, 8\n1, 0, Key_signature, 2, \"major\"\n1, 0, Tempo, 240000\n1, 1200, Tempo, 461538\n1, 1440, Marker_t, \"A\"\n1, 47520, Marker_t, \"A'\"\n1, 93600, Marker_t, \"B\"\n1, 162720, Marker_t, \"B'\"\n1, 230400, Tempo, 923077\n1, 230400, End_track\n2, 0, Start_track\n2, 0, MIDI_port, 0\n2, 0, Title_t, \"Solo Violin\"\n2, 0, Program_c, 0, " + instrument +"\n2, 0, Control_c, 0, 7, 100\n2, 0, Control_c, 0, 10, 64\n"
+        header = "0, 0, Header, 1, 17, " + tempo + "\n1, 0, Start_track\n1, 0, Title_t, \"untitled\"\n1, 0, Copyright_t, \"Copyright © 1996 by David J. Grossman\"\n1, 0, Text_t, \"David J. Grossman\"\n1, 0, SMPTE_offset, 96, 0, 3, 0, 0\n1, 0, Time_signature, 3, 2, 24, 8\n1, 0, Key_signature, 2, \"major\"\n1, 0, Tempo, 240000\n1, 1200, Tempo, 461538\n1, 1440, Marker_t, \"A\"\n1, 47520, Marker_t, \"A'\"\n1, 93600, Marker_t, \"B\"\n1, 162720, Marker_t, \"B'\"\n1, 230400, Tempo, 923077\n1, 230400, End_track\n2, 0, Start_track\n2, 0, MIDI_port, 0\n2, 0, Title_t, \"Solo Violin\"\n2, 0, Program_c, 0, " + instrument +"\n2, 0, Control_c, 0, 7, 100\n2, 0, Control_c, 0, 10, 64\n"
 elif model == "jazzPiano":
     modelPath = "master_models\\" + "jazzPianoMaster.txt"
     choice = 2
@@ -63,7 +67,7 @@ elif model == "jazzPiano":
         header = "0, 0, Header, 1, 2, 120\n1, 0, Start_track\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 681818\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, 0\n2, 0, Tempo, 681818\n"
     else:
         #header = "0, 0, Header, 0, 1, 120\n1, 0, Start_track\n1, 230400, End_track\n2, 0, Start_track\n2, 0, Time_signature, 4, 2, 24, 8\n2, 0, Key_signature, 0, \"major\"\n2, 0, Tempo, 681818\n2, 0, Program_c, 0, " + instrument + "\n2, 0, Program_c, 1, 0\n"
-        header = "0, 0, Header, 1, 2, 120\n1, 0, Start_track\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 681818\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, " + instrument + "\n2, 0, Tempo, 681818\n"
+        header = "0, 0, Header, 1, 2, " + tempo + "\n1, 0, Start_track\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 681818\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, " + instrument + "\n2, 0, Tempo, 681818\n"
 elif model == "mozartPiano":
     modelPath = "master_models\\" + "mozartPianoMaster.txt"
     choice = 4
@@ -73,7 +77,17 @@ elif model == "mozartPiano":
     if default == True:
         header = "0, 0, Header, 0, 1, 120\n1, 0, Start_track\n1, 230400, End_track\n2, 0, Start_track\n2, 0, Title_t, \"A House Is Not A Home\"\n2, 0, Text_t, \"Dougmck\\012\"\n2, 0, Time_signature, 4, 2, 24, 8\n2, 0, Key_signature, 0, \"major\"\n2, 0, Tempo, 1000000\n2, 0, Program_c, 0, 0\n2, 0, Program_c, 1, 0\n"
     else:
-        header = "0, 0, Header, 0, 1, 120\n1, 0, Start_track\n1, 230400, End_track\n2, 0, Start_track\n2, 0, Title_t, \"A House Is Not A Home\"\n2, 0, Text_t, \"Dougmck\\012\"\n2, 0, Time_signature, 4, 2, 24, 8\n2, 0, Key_signature, 0, \"major\"\n2, 0, Tempo, 1000000\n2, 0, Program_c, 0, " + instrument + "\n2, 0, Program_c, 1, 0\n"
+        header = "0, 0, Header, 0, 1, " + tempo + "\n1, 0, Start_track\n1, 230400, End_track\n2, 0, Start_track\n2, 0, Title_t, \"A House Is Not A Home\"\n2, 0, Text_t, \"Dougmck\\012\"\n2, 0, Time_signature, 4, 2, 24, 8\n2, 0, Key_signature, 0, \"major\"\n2, 0, Tempo, 1000000\n2, 0, Program_c, 0, " + instrument + "\n2, 0, Program_c, 1, 0\n"
+elif model == "jimiHendrixGuitar":
+    modelPath = "master_models\\" + "jimiHendrixGuitarMaster.txt"
+    choice = 5
+    specialChar = 'Y'
+    dataFile = "shortDatas\\" + "SDjimiHendrixGuitar.txt"
+    #header for jimiHendrixGuitar
+    if default == True:
+        header = "0, 0, Header, 1, 2, 960\n1, 0, Start_track\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 722891\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, 30\n2, 0, Tempo, 722891\n"
+    else:
+        header = "0, 0, Header, 1, 2, " + tempo + "\n1, 0, Start_track\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 722891\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, " + instrument + "\n2, 0, Tempo, 722891\n"
 else:
     modelPath = "master_models\\" + "bluesGuitarMaster.txt"
     choice = 3
@@ -83,7 +97,7 @@ else:
     if default == True:
         header = "0, 0, Header, 1, 2, 960\n1, 0, Start_track\n1, 0, Control_c, 0, 101, 0\n1, 0, Control_c, 0, 100, 0\n1, 0, Control_c, 0, 6, 12\n1, 0, Control_c, 0, 38, 0\n1, 0, Control_c, 1, 101, 0\n1, 0, Control_c, 1, 100, 0\n1, 0, Control_c, 1, 6, 12\n1, 0, Control_c, 1, 38, 0\n1, 0, Control_c, 2, 101, 0\n1, 0, Control_c, 2, 100, 0\n1, 0, Control_c, 2, 6, 12\n1, 0, Control_c, 2, 38, 0\n1, 0, Control_c, 3, 101, 0\n1, 0, Control_c, 3, 100, 0\n1, 0, Control_c, 3, 6, 12\n1, 0, Control_c, 3, 38, 0\n1, 0, Control_c, 4, 101, 0\n1, 0, Control_c, 4, 100, 0\n1, 0, Control_c, 4, 6, 12\n1, 0, Control_c, 4, 38, 0\n1, 0, Control_c, 5, 101, 0\n1, 0, Control_c, 5, 100, 0\n1, 0, Control_c, 5, 6, 12\n1, 0, Control_c, 5, 38, 0\n1, 0, Control_c, 6, 101, 0\n1, 0, Control_c, 6, 100, 0\n1, 0, Control_c, 6, 6, 12\n1, 0, Control_c, 6, 38, 0\n1, 0, Control_c, 7, 101, 0\n1, 0, Control_c, 7, 100, 0\n1, 0, Control_c, 7, 6, 12\n1, 0, Control_c, 7, 38, 0\n1, 0, Control_c, 8, 101, 0\n1, 0, Control_c, 8, 100, 0\n1, 0, Control_c, 8, 6, 12\n1, 0, Control_c, 8, 38, 0\n1, 0, Control_c, 9, 101, 0\n1, 0, Control_c, 9, 100, 0\n1, 0, Control_c, 9, 6, 12\n1, 0, Control_c, 9, 38, 0\n1, 0, Control_c, 10, 101, 0\n1, 0, Control_c, 10, 100, 0\n1, 0, Control_c, 10, 6, 12\n1, 0, Control_c, 10, 38, 0\n1, 0, Control_c, 11, 101, 0\n1, 0, Control_c, 11, 100, 0\n1, 0, Control_c, 11, 6, 12\n1, 0, Control_c, 11, 38, 0\n1, 0, Control_c, 12, 101, 0\n1, 0, Control_c, 12, 100, 0\n1, 0, Control_c, 12, 6, 12\n1, 0, Control_c, 12, 38, 0\n1, 0, Control_c, 13, 101, 0\n1, 0, Control_c, 13, 100, 0\n1, 0, Control_c, 13, 6, 12\n1, 0, Control_c, 13, 38, 0\n1, 0, Control_c, 14, 101, 0\n1, 0, Control_c, 14, 100, 0\n1, 0, Control_c, 14, 6, 12\n1, 0, Control_c, 14, 38, 0\n1, 0, Control_c, 15, 101, 0\n1, 0, Control_c, 15, 100, 0\n1, 0, Control_c, 15, 6, 12\n1, 0, Control_c, 15, 38, 0\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 480000\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, 25\n"
     else:
-        header = "0, 0, Header, 1, 2, 960\n1, 0, Start_track\n1, 0, Control_c, 0, 101, 0\n1, 0, Control_c, 0, 100, 0\n1, 0, Control_c, 0, 6, 12\n1, 0, Control_c, 0, 38, 0\n1, 0, Control_c, 1, 101, 0\n1, 0, Control_c, 1, 100, 0\n1, 0, Control_c, 1, 6, 12\n1, 0, Control_c, 1, 38, 0\n1, 0, Control_c, 2, 101, 0\n1, 0, Control_c, 2, 100, 0\n1, 0, Control_c, 2, 6, 12\n1, 0, Control_c, 2, 38, 0\n1, 0, Control_c, 3, 101, 0\n1, 0, Control_c, 3, 100, 0\n1, 0, Control_c, 3, 6, 12\n1, 0, Control_c, 3, 38, 0\n1, 0, Control_c, 4, 101, 0\n1, 0, Control_c, 4, 100, 0\n1, 0, Control_c, 4, 6, 12\n1, 0, Control_c, 4, 38, 0\n1, 0, Control_c, 5, 101, 0\n1, 0, Control_c, 5, 100, 0\n1, 0, Control_c, 5, 6, 12\n1, 0, Control_c, 5, 38, 0\n1, 0, Control_c, 6, 101, 0\n1, 0, Control_c, 6, 100, 0\n1, 0, Control_c, 6, 6, 12\n1, 0, Control_c, 6, 38, 0\n1, 0, Control_c, 7, 101, 0\n1, 0, Control_c, 7, 100, 0\n1, 0, Control_c, 7, 6, 12\n1, 0, Control_c, 7, 38, 0\n1, 0, Control_c, 8, 101, 0\n1, 0, Control_c, 8, 100, 0\n1, 0, Control_c, 8, 6, 12\n1, 0, Control_c, 8, 38, 0\n1, 0, Control_c, 9, 101, 0\n1, 0, Control_c, 9, 100, 0\n1, 0, Control_c, 9, 6, 12\n1, 0, Control_c, 9, 38, 0\n1, 0, Control_c, 10, 101, 0\n1, 0, Control_c, 10, 100, 0\n1, 0, Control_c, 10, 6, 12\n1, 0, Control_c, 10, 38, 0\n1, 0, Control_c, 11, 101, 0\n1, 0, Control_c, 11, 100, 0\n1, 0, Control_c, 11, 6, 12\n1, 0, Control_c, 11, 38, 0\n1, 0, Control_c, 12, 101, 0\n1, 0, Control_c, 12, 100, 0\n1, 0, Control_c, 12, 6, 12\n1, 0, Control_c, 12, 38, 0\n1, 0, Control_c, 13, 101, 0\n1, 0, Control_c, 13, 100, 0\n1, 0, Control_c, 13, 6, 12\n1, 0, Control_c, 13, 38, 0\n1, 0, Control_c, 14, 101, 0\n1, 0, Control_c, 14, 100, 0\n1, 0, Control_c, 14, 6, 12\n1, 0, Control_c, 14, 38, 0\n1, 0, Control_c, 15, 101, 0\n1, 0, Control_c, 15, 100, 0\n1, 0, Control_c, 15, 6, 12\n1, 0, Control_c, 15, 38, 0\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 480000\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, " + instrument + "\n"
+        header = "0, 0, Header, 1, 2, " + tempo + "\n1, 0, Start_track\n1, 0, Control_c, 0, 101, 0\n1, 0, Control_c, 0, 100, 0\n1, 0, Control_c, 0, 6, 12\n1, 0, Control_c, 0, 38, 0\n1, 0, Control_c, 1, 101, 0\n1, 0, Control_c, 1, 100, 0\n1, 0, Control_c, 1, 6, 12\n1, 0, Control_c, 1, 38, 0\n1, 0, Control_c, 2, 101, 0\n1, 0, Control_c, 2, 100, 0\n1, 0, Control_c, 2, 6, 12\n1, 0, Control_c, 2, 38, 0\n1, 0, Control_c, 3, 101, 0\n1, 0, Control_c, 3, 100, 0\n1, 0, Control_c, 3, 6, 12\n1, 0, Control_c, 3, 38, 0\n1, 0, Control_c, 4, 101, 0\n1, 0, Control_c, 4, 100, 0\n1, 0, Control_c, 4, 6, 12\n1, 0, Control_c, 4, 38, 0\n1, 0, Control_c, 5, 101, 0\n1, 0, Control_c, 5, 100, 0\n1, 0, Control_c, 5, 6, 12\n1, 0, Control_c, 5, 38, 0\n1, 0, Control_c, 6, 101, 0\n1, 0, Control_c, 6, 100, 0\n1, 0, Control_c, 6, 6, 12\n1, 0, Control_c, 6, 38, 0\n1, 0, Control_c, 7, 101, 0\n1, 0, Control_c, 7, 100, 0\n1, 0, Control_c, 7, 6, 12\n1, 0, Control_c, 7, 38, 0\n1, 0, Control_c, 8, 101, 0\n1, 0, Control_c, 8, 100, 0\n1, 0, Control_c, 8, 6, 12\n1, 0, Control_c, 8, 38, 0\n1, 0, Control_c, 9, 101, 0\n1, 0, Control_c, 9, 100, 0\n1, 0, Control_c, 9, 6, 12\n1, 0, Control_c, 9, 38, 0\n1, 0, Control_c, 10, 101, 0\n1, 0, Control_c, 10, 100, 0\n1, 0, Control_c, 10, 6, 12\n1, 0, Control_c, 10, 38, 0\n1, 0, Control_c, 11, 101, 0\n1, 0, Control_c, 11, 100, 0\n1, 0, Control_c, 11, 6, 12\n1, 0, Control_c, 11, 38, 0\n1, 0, Control_c, 12, 101, 0\n1, 0, Control_c, 12, 100, 0\n1, 0, Control_c, 12, 6, 12\n1, 0, Control_c, 12, 38, 0\n1, 0, Control_c, 13, 101, 0\n1, 0, Control_c, 13, 100, 0\n1, 0, Control_c, 13, 6, 12\n1, 0, Control_c, 13, 38, 0\n1, 0, Control_c, 14, 101, 0\n1, 0, Control_c, 14, 100, 0\n1, 0, Control_c, 14, 6, 12\n1, 0, Control_c, 14, 38, 0\n1, 0, Control_c, 15, 101, 0\n1, 0, Control_c, 15, 100, 0\n1, 0, Control_c, 15, 6, 12\n1, 0, Control_c, 15, 38, 0\n1, 0, Time_signature, 4, 2, 24, 8\n1, 0, Tempo, 480000\n1, 0, End_track\n2, 0, Start_track\n2, 0, Program_c, 0, " + instrument + "\n"
 
 
 ##############################################################   
@@ -274,11 +288,24 @@ for n in range(5):
       for y in range(len(chars)):
         if chars[y] == char and chars[y + 1] != specialChar:
           if y != len(chars) - 1:
-            char2 = chars[y + 1]
+            if model == "jimiHendrixGuitar":
+                char2 = chars[y]
+            else:
+                char2 = chars[y + 1]
+            #if char2 == ":" or char2 == "V" or char2 == ")" and model == "mozartPiano":  #to fix weird issues with Mozart Piano
+            #   char2 = "+"
+            #elif char2 == ")" and model == "mozartPiano":
+            #    char2 = "+"
+            #elif char2 == "8" or char2 == "2" or char2 == "3" or char2 == "7" or char2 == "4" or char2 == "5" and model == "mozartPiano":
+            #    char2 = "+"
             txtNew = txtNew + char2
           else:
-            char2 = chars[0]
+            if model =="jimiHendrixGuitar":
+                char2 = chars[0]
+            else:
+                char2 = chars[y]
             txtNew = txtNew + char2
+           
     #####################
             
     #print '----\n %s \n----' % (txt, )
@@ -314,6 +341,8 @@ for n in range(5):
         cmd = ["./csvmidi", filestring3, sampleDirectory + "jazzPianoSample" + ".mid"]
     elif choice == 4:
         cmd = ["./csvmidi", filestring3, sampleDirectory + "mozartPianoSample" + ".mid"]
+    elif choice == 5:
+        cmd = ["./csvmidi", filestring3, sampleDirectory + "jimiHendrixGuitarSample" + ".mid"]
     else:
         cmd = ["./csvmidi", filestring3, sampleDirectory + "bluesGuitarSample" + ".mid"]
         
