@@ -20,6 +20,7 @@ sampleDirectory = "active_samples\\"
 default = True
 instrument = "0"
 tempo = "120"
+length = 20000
 
 def union(*dicts):
     return dict(itertools.chain.from_iterable(dct.items() for dct in dicts))
@@ -32,6 +33,7 @@ if(len(sys.argv) > 1 ):
     tempo = str(sys.argv[3])
     seed = int(sys.argv[4])
     np.random.seed(seed)
+    length = int(sys.argv[5])
 else:
     model = ""
 
@@ -40,11 +42,12 @@ open('longDatax.txt', 'w').close()
 open('shortDatax.txt', 'w').close()
 open('shortDataFresh.txt', 'w').close()
 
-#model = "jimiHendrixGuitar"
-#tempo = "120"
+#testing
+#model = "jazzPiano"
+#tempo = "960"
 #default = False
 #seed = 100
-#instrument = "30"
+#instrument = "0"
 #np.random.seed(seed)
 
 #read from selected model
@@ -288,7 +291,7 @@ for n in range(5):
 
   # sample from the model exactly once
   if n == 4:     
-    sample_ix = sample(hprev, inputs[0], 3000)  #200 originally
+    sample_ix = sample(hprev, inputs[0], length)  #length = 20,000 default
     txt = ''.join(ix_to_char[ix] for ix in sample_ix)
 
     ##################
@@ -335,7 +338,10 @@ for n in range(5):
     out = result.stdout.read()
 
     #footer for csv file
-    footer = "3, 0, Start_track\n3, 0, MIDI_port, 0\n3, 0, Title_t, \"--------------------------------------\"\n3, 0, Program_c, 1, 40\n3, 0, Control_c, 1, 7, 100\n3, 0, Control_c, 1, 10, 74\n3, 59760, End_track\n4, 0, Start_track\n4, 0, MIDI_port, 0\n4, 0, Title_t, \"Johann Sebastian Bach  (1685-1750)\"\n4, 0, Program_c, 2, 40\n4, 0, Control_c, 2, 7, 100\n4, 0, Control_c, 2, 10, 54\n4, 59760, End_track\n5, 0, Start_track\n5, 0, MIDI_port, 0\n5, 0, Title_t, \"Six Sonatas and Partitas for Solo Violin\"\n5, 0, End_track\n6, 0, Start_track\n6, 0, MIDI_port, 0\n6, 0, Title_t, \"--------------------------------------\"\n6, 0, End_track\n7, 0, Start_track\n7, 0, MIDI_port, 0\n7, 0, Title_t, \"Partita No. 1 in B minor - BWV 1002\"\n7, 0, End_track\n8, 0, Start_track\n8, 0, MIDI_port, 0\n8, 0, Title_t, \"3rd Movement: Corrente\"\n8, 0, End_track\n9, 0, Start_track\n9, 0, MIDI_port, 0\n9, 0, Title_t, \"--------------------------------------\"\n9, 0, End_track\n10, 0, Start_track\n10, 0, MIDI_port, 0\n10, 0, Title_t, \"Sequenced with Cakewalk Pro Audio by\"\n10, 0, End_track\n11, 0, Start_track\n11, 0, MIDI_port, 0\n11, 0, Title_t, \"David J. Grossman - dave@unpronounceable.com\"\n11, 0, End_track\n12, 0, Start_track\n12, 0, MIDI_port, 0\n12, 0, Title_t, \"This and other Bach MIDI files can be found at:\"\n12, 0, End_track\n13, 0, Start_track\n13, 0, MIDI_port, 0\n13, 0, Title_t, \"Dave's J.S. Bach Page\"\n13, 0, End_track\n14, 0, Start_track\n14, 0, MIDI_port, 0\n14, 0, Title_t, \"http://www.unpronounceable.com/bach\"\n14, 0, End_track\n15, 0, Start_track\n15, 0, MIDI_port, 0\n15, 0, Title_t, \"--------------------------------------\"\n15, 0, End_track\n16, 0, Start_track\n16, 0, MIDI_port, 0\n16, 0, Title_t, \"Original Filename: vp1-3co.mid\"\n16, 0, End_track\n17, 0, Start_track\n17, 0, MIDI_port, 0\n17, 0, Title_t, \"Last Modified: February 22, 1997\"\n17, 0, End_track\n0, 0, End_of_file\n"
+    #if default == True:
+    footer = "3, 0, Start_track\n3, 0, MIDI_port, 0\n3, 0, Title_t, \"--------------------------------------\"\n3, 0, Program_c, 1, 40\n3, 0, Control_c, 1, 7, 100\n3, 0, Control_c, 1, 10, 74\n3, 5000, End_track\n4, 0, Start_track\n4, 0, MIDI_port, 0\n4, 0, Title_t, \"Johann Sebastian Bach  (1685-1750)\"\n4, 0, Program_c, 2, 40\n4, 0, Control_c, 2, 7, 100\n4, 0, Control_c, 2, 10, 54\n4, 5000, End_track\n5, 0, Start_track\n5, 0, MIDI_port, 0\n5, 0, Title_t, \"Six Sonatas and Partitas for Solo Violin\"\n5, 0, End_track\n6, 0, Start_track\n6, 0, MIDI_port, 0\n6, 0, Title_t, \"--------------------------------------\"\n6, 0, End_track\n7, 0, Start_track\n7, 0, MIDI_port, 0\n7, 0, Title_t, \"Partita No. 1 in B minor - BWV 1002\"\n7, 0, End_track\n8, 0, Start_track\n8, 0, MIDI_port, 0\n8, 0, Title_t, \"3rd Movement: Corrente\"\n8, 0, End_track\n9, 0, Start_track\n9, 0, MIDI_port, 0\n9, 0, Title_t, \"--------------------------------------\"\n9, 0, End_track\n10, 0, Start_track\n10, 0, MIDI_port, 0\n10, 0, Title_t, \"Sequenced with Cakewalk Pro Audio by\"\n10, 0, End_track\n11, 0, Start_track\n11, 0, MIDI_port, 0\n11, 0, Title_t, \"David J. Grossman - dave@unpronounceable.com\"\n11, 0, End_track\n12, 0, Start_track\n12, 0, MIDI_port, 0\n12, 0, Title_t, \"This and other Bach MIDI files can be found at:\"\n12, 0, End_track\n13, 0, Start_track\n13, 0, MIDI_port, 0\n13, 0, Title_t, \"Dave's J.S. Bach Page\"\n13, 0, End_track\n14, 0, Start_track\n14, 0, MIDI_port, 0\n14, 0, Title_t, \"http://www.unpronounceable.com/bach\"\n14, 0, End_track\n15, 0, Start_track\n15, 0, MIDI_port, 0\n15, 0, Title_t, \"--------------------------------------\"\n15, 0, End_track\n16, 0, Start_track\n16, 0, MIDI_port, 0\n16, 0, Title_t, \"Original Filename: vp1-3co.mid\"\n16, 0, End_track\n17, 0, Start_track\n17, 0, MIDI_port, 0\n17, 0, Title_t, \"Last Modified: February 22, 1997\"\n17, 0, End_track\n0, 0, End_of_file\n"
+    #else:
+        #footer = "3, 0, Start_track\n3, 0, MIDI_port, 0\n3, 0, Title_t, \"--------------------------------------\"\n3, 0, Program_c, 1, 40\n3, 0, Control_c, 1, 7, 100\n3, 0, Control_c, 1, 10, 74\n3, " + str(midiLength) + ", End_track\n4, 0, Start_track\n4, 0, MIDI_port, 0\n4, 0, Title_t, \"Johann Sebastian Bach  (1685-1750)\"\n4, 0, Program_c, 2, 40\n4, 0, Control_c, 2, 7, 100\n4, 0, Control_c, 2, 10, 54\n4, " + str(midiLength) + ", End_track\n5, 0, Start_track\n5, 0, MIDI_port, 0\n5, 0, Title_t, \"Six Sonatas and Partitas for Solo Violin\"\n5, 0, End_track\n6, 0, Start_track\n6, 0, MIDI_port, 0\n6, 0, Title_t, \"--------------------------------------\"\n6, 0, End_track\n7, 0, Start_track\n7, 0, MIDI_port, 0\n7, 0, Title_t, \"Partita No. 1 in B minor - BWV 1002\"\n7, 0, End_track\n8, 0, Start_track\n8, 0, MIDI_port, 0\n8, 0, Title_t, \"3rd Movement: Corrente\"\n8, 0, End_track\n9, 0, Start_track\n9, 0, MIDI_port, 0\n9, 0, Title_t, \"--------------------------------------\"\n9, 0, End_track\n10, 0, Start_track\n10, 0, MIDI_port, 0\n10, 0, Title_t, \"Sequenced with Cakewalk Pro Audio by\"\n10, 0, End_track\n11, 0, Start_track\n11, 0, MIDI_port, 0\n11, 0, Title_t, \"David J. Grossman - dave@unpronounceable.com\"\n11, 0, End_track\n12, 0, Start_track\n12, 0, MIDI_port, 0\n12, 0, Title_t,\"This and other Bach MIDI files can be found at:\"\n12, 0, End_track\n13, 0, Start_track\n13, 0, MIDI_port, 0\n13, 0, Title_t, \"Dave's J.S. Bach Page\"\n13, 0, End_track\n14, 0, Start_track\n14, 0, MIDI_port, 0\n14, 0, Title_t, \"http://www.unpronounceable.com/bach\"\n14, 0, End_track\n15, 0, Start_track\n15, 0, MIDI_port, 0\n15, 0, Title_t, \"--------------------------------------\"\n15, 0, End_track\n16, 0, Start_track\n16, 0, MIDI_port, 0\n16, 0, Title_t, \"Original Filename: vp1-3co.mid\"\n16, 0, End_track\n17, 0, Start_track\n17, 0, MIDI_port, 0\n17, 0, Title_t, \"Last Modified: February 22, 1997\"\n17, 0, End_track\n0, 0, End_of_file\n"
 
     #create csv file w/ header and footer
     with open(filestring2, 'r') as infile:
@@ -343,17 +349,22 @@ for n in range(5):
       with open(filestring3, 'w+') as outfile:
         outfile.write(header + content + footer)
 
+    counter = 1
+    for filename in os.listdir(sampleDirectory):
+      if filename.endswith(".mid") or filename.endswith(".MID"):
+          counter = counter + 1
+
     #create midi file from csv
     if choice == 1:    
-        cmd = ["./csvmidi", filestring3, sampleDirectory + "classicalViolinSample" + ".mid"]
+        cmd = ["./csvmidi", filestring3, sampleDirectory + "classicalViolinSample(" + str(counter) +   ").mid"]
     elif choice == 2:
-        cmd = ["./csvmidi", filestring3, sampleDirectory + "jazzPianoSample" + ".mid"]
+        cmd = ["./csvmidi", filestring3, sampleDirectory + "jazzPianoSample(" + str(counter) +   ").mid"]
     elif choice == 4:
-        cmd = ["./csvmidi", filestring3, sampleDirectory + "mozartPianoSample" + ".mid"]
+        cmd = ["./csvmidi", filestring3, sampleDirectory + "mozartPianoSample(" + str(counter) +   ").mid"]
     elif choice == 5:
-        cmd = ["./csvmidi", filestring3, sampleDirectory + "jimiHendrixGuitarSample" + ".mid"]
+        cmd = ["./csvmidi", filestring3, sampleDirectory + "jimiHendrixGuitarSample(" + str(counter) +   ").mid"]
     else:
-        cmd = ["./csvmidi", filestring3, sampleDirectory + "bluesGuitarSample" + ".mid"]
+        cmd = ["./csvmidi", filestring3, sampleDirectory + "bluesGuitarSample(" + str(counter) +   ").mid"]
         
     #cmd = ["./csvmidi", filestring3, sampleDirectory + "spanishGuitarSample" + ".mid"]
     
